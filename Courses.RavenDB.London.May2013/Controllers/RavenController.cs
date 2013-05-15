@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Raven.Client;
 using Raven.Client.Document;
+using Raven.Client.Indexes;
 
 namespace Courses.RavenDB.London.May2013.Controllers
 {
@@ -18,10 +19,19 @@ namespace Courses.RavenDB.London.May2013.Controllers
 					};
 				store.Initialize();
 
+				IndexCreation.CreateIndexes(
+					typeof (UsersController).Assembly,
+					store);
+
 				return store;
 			});
 
 		public new IDocumentSession Session { get; set; }
+
+		protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
+		{
+			return base.Json(data, contentType, contentEncoding, JsonRequestBehavior.AllowGet);
+		}
 
 		protected override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
