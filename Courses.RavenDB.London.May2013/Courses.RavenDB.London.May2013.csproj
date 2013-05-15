@@ -123,12 +123,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Indexes\Animals_ByOwner.cs" />
     <Compile Include="Indexes\IndexQuery.cs" />
     <Compile Include="Indexes\Names_Search.cs" />
     <Compile Include="Indexes\Users_Search.cs" />
     <Compile Include="Models\Cat.cs" />
     <Compile Include="Models\Dog.cs" />
     <Compile Include="Models\IHaveName.cs" />
+    <Compile Include="Models\IHaveOwner.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
