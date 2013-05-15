@@ -2,7 +2,7 @@
 
 namespace Courses.RavenDB.London.May2013.Models
 {
-	public class User
+	public class User : IHaveName
 	{
 		public string Name { get; set; }
 		public string Email { get; set; } 

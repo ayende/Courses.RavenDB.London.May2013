@@ -118,12 +118,17 @@
     <Compile Include="Controllers\Old\ClientController.cs" />
     <Compile Include="Controllers\Old\ManualController.cs" />
     <Compile Include="Controllers\RavenController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Indexes\IndexQuery.cs" />
+    <Compile Include="Indexes\Names_Search.cs" />
     <Compile Include="Indexes\Users_Search.cs" />
+    <Compile Include="Models\Cat.cs" />
+    <Compile Include="Models\Dog.cs" />
+    <Compile Include="Models\IHaveName.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
