@@ -1,4 +1,5 @@
-﻿using Courses.RavenDB.London.May2013.Indexes;
+﻿using System;
+using Courses.RavenDB.London.May2013.Indexes;
 using Courses.RavenDB.London.May2013.Models;
 using System.Linq;
 
@@ -23,7 +24,8 @@ namespace Courses.RavenDB.London.May2013.Controllers
 				return Json(new
 					{
 						r.Name,
-						Owner = owner.Name
+						Owner = owner.Name,
+						owner.Phones
 					});
 			}
 
