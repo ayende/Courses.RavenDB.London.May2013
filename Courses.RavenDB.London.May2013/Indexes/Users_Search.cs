@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using Courses.RavenDB.London.May2013.Models;
+using Raven.Abstractions.Data;
+using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 
 namespace Courses.RavenDB.London.May2013.Indexes
@@ -12,14 +14,14 @@ namespace Courses.RavenDB.London.May2013.Indexes
 			      from user in users
 			      select new
 				      {
-						Query = new object[]
-							{
-								user.Name,
-								user.Name.Split(' '),
-								user.Email.Split('@'),
-								user.Email
-							}
+						user.Name
 				      };
+			Index(x => x.Name, FieldIndexing.Analyzed);
+			Suggestion(x => x.Name, new SuggestionOptions
+				{
+					Accuracy = 0.6f,
+					Distance = StringDistanceTypes.Default
+				});
 		}
 	}
 }

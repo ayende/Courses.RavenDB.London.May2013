@@ -13,6 +13,8 @@ namespace Courses.RavenDB.London.May2013.Indexes
 
 			AddMap<Dog>(dogs => from dog in dogs
 								select new { dog.OwnerId });
+
+
 		}
 	}
 }

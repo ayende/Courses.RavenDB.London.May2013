@@ -13,6 +13,13 @@ namespace Courses.RavenDB.London.May2013.Controllers
 		{
 			var user = new User() { Name = name };
 			Session.Store(user);
+
+			//Session.Load<MyTransfomer,User>("dogs/1")
+
+			//Session.Query<User>()
+			//	.TransformWith<MyTransfomer>()
+
+
 			return Json(user.Id);
 		}
 
@@ -37,9 +44,9 @@ namespace Courses.RavenDB.London.May2013.Controllers
 		public object Query(string q)
 		{
 			var a = Session.Query<IndexQuery>("Users/Search")
-			               .Search(x => x.Query, q)
-			               .OfType<User>()
-			               .ToList();
+						   .Search(x => x.Query, q)
+						   .OfType<User>()
+						   .ToList();
 
 			//a = Session.Advanced.LuceneQuery<User>("Users/Search")
 			//		  .Search("Query", q)

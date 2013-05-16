@@ -2,6 +2,7 @@
 using Courses.RavenDB.London.May2013.Indexes;
 using Courses.RavenDB.London.May2013.Models;
 using System.Linq;
+using Raven.Client;
 
 namespace Courses.RavenDB.London.May2013.Controllers
 {
@@ -9,37 +10,29 @@ namespace Courses.RavenDB.London.May2013.Controllers
 	{
 		public object Name(string name)
 		{
-			var r = Session.Query<IHaveName>("Names/Search")
-				.FirstOrDefault(x => x.Name == name);
-			if (r == null)
+			var q = Session.Query<User>("Users/Search")
+			               .Search(x => x.Name, name);
+
+			var results = q.ToList();
+
+			if (results.Count == 0)
 			{
-				return Json("Not found");
-			}
-
-			var haveOwner = r as IHaveOwner;
-			if (haveOwner != null)
-			{
-				var owner = Session.Load<User>(haveOwner.OwnerId);
-
-				return Json(new
-					{
-						r.Name,
-						Owner = owner.Name,
-						owner.Phones
-					});
-			}
-
-			var user = (User) r;
-			var animals = Session.Query<IHaveOwner, Animals_ByOwner>()
-			       .Where(x => x.OwnerId == user.Id)
-				   .OfType<IHaveName>()
-			       .ToList();
-
-			return Json(new
+				var suggestionQueryResult = q.Suggest();
+				switch (suggestionQueryResult.Suggestions.Length)
 				{
-					Owner = user.Name,
-					Pets = animals.Select(x=>x.Name)
-				});
+					case 0:
+						return Json("No idea");
+					case 1:
+						return Name(suggestionQueryResult.Suggestions[0]);
+					default:
+						return Json(new
+							{
+								DidYouMean = suggestionQueryResult.Suggestions
+							});
+				}
+			}
+
+			return Json(results);
 		} 
 	}
 }
