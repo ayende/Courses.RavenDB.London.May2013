@@ -36,7 +36,6 @@ namespace Courses.RavenDB.London.May2013.Controllers
 		public object Danger()
 		{
 			var users = Session.Query<User>()
-			   .Where(y => y.Hobbies.Any(x => x.Dangerous))
 			   .ToList();
 			return Json(users);
 		}

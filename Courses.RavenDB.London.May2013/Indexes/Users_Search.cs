@@ -11,12 +11,15 @@ namespace Courses.RavenDB.London.May2013.Indexes
 		public Users_Search()
 		{
 			Map = users =>
-			      from user in users
-			      select new
-				      {
-						user.Name
-				      };
+				  from user in users
+				  select new
+					  {
+						  user.Name,
+						  user.Hobbies
+					  };
 			Index(x => x.Name, FieldIndexing.Analyzed);
+			TermVector(x=>x.Hobbies, FieldTermVector.WithPositionsAndOffsets);
+			Index(x => x.Hobbies, FieldIndexing.Analyzed);
 			Suggestion(x => x.Name, new SuggestionOptions
 				{
 					Accuracy = 0.6f,

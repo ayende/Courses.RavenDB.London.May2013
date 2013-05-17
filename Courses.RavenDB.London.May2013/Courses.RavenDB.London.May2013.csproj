@@ -137,7 +137,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Indexes\Animals_ByOwner.cs" />
+    <Compile Include="Indexes\Dogs_Search.cs" />
     <Compile Include="Indexes\IndexQuery.cs" />
+    <Compile Include="Indexes\LazyController.cs" />
     <Compile Include="Indexes\Names_Search.cs" />
     <Compile Include="Indexes\Users_Search.cs" />
     <Compile Include="Models\Cat.cs" />

@@ -9,7 +9,7 @@ namespace Courses.RavenDB.London.May2013.Controllers
 	public class RavenController : Controller
 	{
 		public static IDocumentStore DocumentStore { get { return documentStore.Value; }}
-
+		 
 		public static readonly Lazy<IDocumentStore> documentStore = new Lazy<IDocumentStore>(() =>
 			{
 				var store = new DocumentStore
