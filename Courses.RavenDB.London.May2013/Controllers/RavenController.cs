@@ -15,9 +15,12 @@ namespace Courses.RavenDB.London.May2013.Controllers
 				var store = new DocumentStore
 					{
 						Url = "http://localhost:8080",
-						DefaultDatabase = "Courses"
+						DefaultDatabase = "facets"
 					};
+				store.RegisterListener(new AuditStoreListener());
 				store.Initialize();
+
+				store.LastEtagHolder = new PerUserEtagHolder();
 
 				IndexCreation.CreateIndexes(
 					typeof (UsersController).Assembly,

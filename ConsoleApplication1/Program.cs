@@ -5,48 +5,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Courses.RavenDB.London.May2013.Models;
+using Raven.Abstractions.Data;
 using Raven.Client;
 using Raven.Client.Document;
+using Raven.Client.Indexes;
+using Raven.Client.Linq;
 using Raven.Client.Shard;
 
 namespace ConsoleApplication1
 {
-	class Program
+	internal class Program
 	{
-		static void Main()
+		private static void Main()
 		{
-			var shards = new Dictionary<string, IDocumentStore>
+
+			using (var store = new DocumentStore
 				{
-					{"vet1", new DocumentStore{Url = "http://localhost:8080", DefaultDatabase = "Vet1"}},
-					{"vet2", new DocumentStore{Url = "http://localhost:8080", DefaultDatabase = "Vet2"}},
-					{"vet3", new DocumentStore{Url = "http://localhost:8080", DefaultDatabase = "Vet3"}}
-				};
-
-			var shardStrategy = new ShardStrategy(shards)
-				.ShardingOn<User>()
-				.ShardingOn<Dog>(x => x.OwnerId)
-				.ShardingOn<Cat>(x => x.OwnerId);
-
-			using (var store = new ShardedDocumentStore(shardStrategy))
+					Url = "http://localhost:8080",
+					DefaultDatabase = "Courses",
+					Conventions =
+						{
+							FailoverBehavior = FailoverBehavior.FailImmediately
+						}
+				})
 			{
 				store.Initialize();
 
-				for (int i = 0; i < 3; i++)
+				using (store.AggressivelyCache())
 				{
-					var user = new User();
-					using (var session = store.OpenSession())
+					while (true)
 					{
-						session.Store(user);
-						session.SaveChanges();
-					}
+						using (var s = store.OpenSession())
+						{
+							var load = s.Load<Dog>(1);
+							Console.WriteLine(load.Name);
+						}
 
-					using (var session = store.OpenSession())
-					{
-						session.Store(new Dog
-							{
-								OwnerId = user.Id
-							});
-						session.SaveChanges();
+						Console.ReadLine();
 					}
 				}
 			}

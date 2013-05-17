@@ -42,16 +42,17 @@ namespace Courses.RavenDB.London.May2013.Controllers
 
 		public object Query(string q)
 		{
-			var a = Session.Query<IndexQuery>("Users/Search")
-						   .Search(x => x.Query, q)
-						   .OfType<User>()
-						   .ToList();
+			//var a = Session.Query<IndexQuery>("Users/Search")
+			//			   .Search(x => x.Query, q)
+			//			   .OfType<User>()
+			//			   .ToList();
 
 			//a = Session.Advanced.LuceneQuery<User>("Users/Search")
 			//		  .Search("Query", q)
 			//	  .ToList();
 
-			return Json(a);
+			//return Json(a);
+			return null;
 		}
 
 		public object Phone1(string phone)

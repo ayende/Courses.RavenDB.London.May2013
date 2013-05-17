@@ -127,7 +127,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AuditStoreListener.cs" />
     <Compile Include="Controllers\BulkController.cs" />
+    <Compile Include="Controllers\ConsistencyController.cs" />
+    <Compile Include="Controllers\FacetController.cs" />
     <Compile Include="Controllers\Old\ClientController.cs" />
     <Compile Include="Controllers\Old\ManualController.cs" />
     <Compile Include="Controllers\RavenController.cs" />
@@ -136,8 +139,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Indexes\Animals_ByOwner.cs" />
-    <Compile Include="Indexes\Dogs_Search.cs" />
     <Compile Include="Indexes\IndexQuery.cs" />
     <Compile Include="Indexes\LazyController.cs" />
     <Compile Include="Indexes\Names_Search.cs" />
